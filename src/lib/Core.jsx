@@ -369,6 +369,12 @@ function Core({
     }${seconds}`;
   };
 
+    const submitQuiz = () => {
+    setIsRunning(false);
+    setEndQuiz(true);
+    getUnansweredQuestions();
+  }
+
   const handleTimeUp = () => {
     setIsRunning(false);
     setEndQuiz(true);
@@ -456,6 +462,21 @@ function Core({
                 />
               </div>
               {activeQuestion && renderAnswers(activeQuestion, buttons)}
+              <div style={{display:'flex', justifyContent: 'space-between'}}>
+              {
+              !endQuiz?
+              <div style={{ display: 'flex',marginRight:'auto'}}>
+                 <button
+                    onClick={() => {submitQuiz()}}
+                    style={{ display: 'flex', justifyContent: 'center', backgroundColor: 'green',color:'white' }}
+                    className="quitQuizBtn btn"
+                    type="button"
+                  >
+                    Submit
+                </button>
+              </div>
+              :null
+              }
               {(showNextQuestionButton || allowNavigation) && (
                 <div className="questionBtnContainer">
                   {allowNavigation && currentQuestionIndex > 0 && (
@@ -477,6 +498,7 @@ function Core({
                   </button>
                 </div>
               )}
+              </div>
             </>
           ) : (
             <span className="timerPauseScreen dark:text-white text-black">
